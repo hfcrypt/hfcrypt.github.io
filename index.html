@@ -12,6 +12,9 @@
         * {
             box-sizing: border-box;
             font-family: 'Onest', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            outline: none;
+            scroll-behavior: smooth;
+
         }
 
         body {
@@ -67,6 +70,51 @@
             padding: 10px 25px;
             border-radius: 25px;
         }
+
+        main {
+            padding: 15px 35px;
+            text-align: center;
+        }
+
+        main > p {
+            font-size: 13pt;
+        }
+
+        .footer {
+            padding: 15px 35px;
+            background: #363636;
+            color: white;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            border: 0;
+            background: transparent;
+            font-size: 1.5em;
+            padding: 10px 15px;
+            font-family: monospace;
+            border-radius: 5px;
+        }
+
+        .gsbtn {
+            background: white;
+            color: #0081FF;
+            text-decoration: none;
+            padding: 10px 25px;
+            display: inline-block;
+            border-radius: 25px;
+        }
+
+        #getstarted {
+            background: #EAF4FF;
+            padding: 10px 25px;
+            border-radius: 15px;;
+        }
+
+        a {
+            color: #0081FF;
+        }
     </style>
 </head>
 
@@ -79,8 +127,55 @@
     <div class="header">
         <h1>Host proprietary-source code</h1>
         <h2>On Hugging Face Spaces.</h2>
+        <a href="#getstarted" class="gsbtn" ripple>Get Started</a>
     </div>
-    
+    <main>
+        <h1>About</h1>
+        <h2>The Problem</h2>
+        <p>HFCrypt allows you to host closed-source code on Hugging Face Spaces. Hugging Face Spaces allows you to host free apps for creating public demos of machine learning apps. You can also add GPUs to your Space by renting them by the hour.</p>
+        <p>By default, all Hugging Face Spaces allow everyone to view the source code. There is currently <i>no option</i> to hide the source code.</p>
+        <h2>The Solution</h2>
+        <p>There are several ways to solve this problem. HFCrypt has a feature called "Secrets," which allows you store short strings of text that only you can view. Although they are usually used for storing API keys, they can also be used for other purposes. These "secrets" can be accessed from inside the space's code.</p>
+        <p>You can host your code on an external private repository and clone it with an API key. This is a feasible option, but is much more difficult and requires an external code repository. Depending in the size of additional files, this can also get quite expensive.</p>
+        <p><b>Here's where HFCrypt comes in.</b></p>
+        <p>HFCrypt is an open-source tool that both <i>compresses</i> and <i>encrypts</i> your Hugging Face Space app.</p>
+        <p>Here's an overview of how it works:</p>
+        <ol>
+            <li>HFCrypt compresses your app into a file</li>
+            <li>The file is encrypted and a random key is generated</li>
+            <li>Your key is outputted to the console</li>
+            <li>Your key is stored in Hugging Face Spaces Secrets</li>
+            <li>Upload your generated code to Hugging Face Spaces!</li>
+        </ol>
+        <div id="getstarted">
+            <h1>Get Started</h1>
+            <p>Place your app in the "app" folder and name your main file "app.py." Make sure the host is set to "0.0.0.0."</p>
+            <p>Then run the following command in Terminal (Unix/Linux only, see repository for Windows instructions):</p>
+            <input type="text" value="python3 -m pip install cryptography && python3 -c &quot;$(curl -fsSL https://raw.githubusercontent.com/hfcrypt/hfcrypt/main/hfcrypt.py)&quot;" readonly onclick="this.select();">
+        </div>
+        <h1>FAQs</h1>
+        <h2>Is HFCrypt free/open-sourced?</h2>
+        <p>Yes, HFCrypt is completely free and open sourced! All source code can be viewed on GitHub for free!</p>
+        <h2>How secure is HFCrypt?</h2>
+        <p>HFCrypt is not completely secure. Theoretically, a brute-force attack could be used to crack the encryption. We use the standard Fernet encryption library, which, although not the most secure, is not generally considered insecure. Extremely sensitive code should not be stored on HFCrypt, and future vulnerabilities may be found in Fernet. Fernet is managed by the Python Cryptographic Authority, which keeps the it regularly updated.</p>
+        <h2>Why would I want to close-source my code?</h2>
+        <p>There are several reasons to close-source your code. If possible, we would like to suggest and promote open-source development, but we recognize that sometimes this is not possible of feasible.</p>
+        <p>If you have API keys embedded deep in your application, have proprietary code in your webapp, or have restrictively-licensed software in your program that do not allow redistribution, closed-source software may be the best solution.</p>
+        <p>We would like to request those who are looking into this project to <b>consider open-sourcing their program</b> if possible, and only close-source it if absolutely necessary.</p>
+        <h2>Will HFCrypt have access to my code?</h2>
+        <p>No. All processing is done locally.</p>
+        <h2>Can I run HFCrypt in the cloud?</h2>
+        <p>We do not offer a hosted cloud service, but theoretically you could self-host a modified version of the program that automatically deploys encrypted versions of your app.</p>
+        <h2>Who created HFCrypt?</h2>
+        <p>HFCrypt was created by <a href="https://mrfake.name/" target="_blank">mrfakename</a>, a full-stack developer. HFCrypt has no affiliation with Hugging Face.</p>
+        <h2>Is HFCrypt affiliated with Hugging Face?</h2>
+        <p>No, HFCrypt is not affiliated with or related to Hugging Face or any of its affiliates.</p>
+        <h2>What is the license of HFCrypt?</h2>
+        <p>HFCrypt's license can be found in the source code repository.</p>
+    </main>
+    <div class="footer">
+        <p>Copyright 2023  HFCrypt Authors. All rights reserved. HFCrypt is not affiliated with Hugging Face. All trademarks property of their respective owners.</p>
+    </div>
 </body>
 
 </html>

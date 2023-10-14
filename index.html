@@ -59,6 +59,7 @@
         .header h1 {
             font-size: 35pt;
         }
+
         .header h2 {
             font-size: 25pt;
         }
@@ -71,12 +72,28 @@
             border-radius: 25px;
         }
 
+        nav .stars {
+            border: 2px solid #0081FF;
+            color: #0081FF;
+            text-decoration: none;
+            padding: 8px 23px;
+            border-radius: 25px;
+            margin-right: 15px;
+        }
+
+        #stars {
+            background: #0081FF;
+            color: white;
+            padding: 1px 7px;
+            border-radius: 100px;
+        }
+
         main {
             padding: 15px 35px;
             text-align: center;
         }
 
-        main > p {
+        main>p {
             font-size: 13pt;
         }
 
@@ -95,6 +112,7 @@
             padding: 10px 15px;
             font-family: monospace;
             border-radius: 5px;
+            background: #F7FBFF;
         }
 
         .gsbtn {
@@ -109,23 +127,83 @@
         #getstarted {
             background: #EAF4FF;
             padding: 10px 25px;
-            border-radius: 15px;;
+            border-radius: 15px;
+            ;
         }
 
         a {
             color: #0081FF;
         }
     </style>
+    <script>
+        // Function to set a cookie with an expiration time
+        function setCookie(name, value, hours) {
+            const now = new Date();
+            now.setTime(now.getTime() + hours * 60 * 60 * 1000);
+            document.cookie = `${name}=${value}; expires=${now.toUTCString()}; path=/`;
+        }
+
+        function getCookie(name) {
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+                const parts = cookie.split('=');
+                const cookieName = parts[0].trim();
+                if (cookieName === name) {
+                    return parts[1];
+                }
+            }
+            return null;
+        }
+
+        function formatNumberWithAbbreviation(number) {
+  if (number >= 1000000) {
+    return (number / 1000000).toFixed(1) + 'M';
+  } else if (number >= 1000) {
+    return (number / 1000).toFixed(1) + 'K';
+  } else {
+    return number.toString();
+  }
+}
+
+        window.onload = function () {
+            const cachedStars = getCookie('cachedStars');
+            if (cachedStars !== null) {
+                document.getElementById('stars').innerText = formatNumberWithAbbreviation(Number(cachedStars));
+            } else {
+            const repoUrl = 'https://api.github.com/repos/hfcrypt/hfcrypt';
+            fetch(repoUrl)
+                .then(response => {
+                    if (response.status !== 200) {
+                        console.log(`Error: ${response.status}`);
+                        return;
+                    }
+
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    const stargazersCount = data.stargazers_count;
+                    document.getElementById('stars').innerText = formatNumberWithAbbreviation(Number(stargazersCount));
+                    setCookie('cachedStars', stargazersCount, 1);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        }
+
+    </script>
 </head>
 
 <body>
     <nav>
         <span class="title">HFCrypt</span>
         <span class="spacer"></span>
+        <a href="https://github.com/hfcrypt/hfcrypt/stargazers" class="stars" ripple target="_blank">Star <span id="stars"></span></a>
         <a href="https://github.com/hfcrypt/hfcrypt" class="github" ripple target="_blank" rel="noopener">GitHub</a>
     </nav>
     <div class="header">
-        <h1>Host proprietary-source code</h1>
+        <h1>Host proprietary and closed-source code</h1>
         <h2>On Hugging Face Spaces.</h2>
         <a href="#getstarted" class="gsbtn" ripple>Get Started</a>
     </div>
@@ -151,7 +229,9 @@
             <h1>Get Started</h1>
             <p>Place your app in the "app" folder and name your main file "app.py." Make sure the host is set to "0.0.0.0."</p>
             <p>Then run the following command in Terminal (Unix/Linux only, see repository for Windows instructions):</p>
-            <input type="text" value="python3 -m pip install cryptography && python3 -c &quot;$(curl -fsSL https://raw.githubusercontent.com/hfcrypt/hfcrypt/main/hfcrypt.py)&quot;" readonly onclick="this.select();">
+            <div class="command">
+                <input type="text" value="python3 -m pip install cryptography && python3 -c &quot;$(curl -fsSL https://raw.githubusercontent.com/hfcrypt/hfcrypt/main/hfcrypt.py)&quot;" readonly onclick="this.select();">
+            </div>
         </div>
         <h1>FAQs</h1>
         <h2>Is HFCrypt free/open-sourced?</h2>
@@ -174,7 +254,7 @@
         <p>HFCrypt's license can be found in the source code repository.</p>
     </main>
     <div class="footer">
-        <p>Copyright 2023  HFCrypt Authors. All rights reserved. HFCrypt is not affiliated with Hugging Face. All trademarks property of their respective owners.</p>
+        <p>Copyright 2023 HFCrypt Authors. All rights reserved. HFCrypt is not affiliated with Hugging Face. All trademarks property of their respective owners.</p>
     </div>
 </body>
 

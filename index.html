@@ -124,6 +124,13 @@
             border-radius: 25px;
         }
 
+        .scbtn {
+            color: white;
+            text-decoration: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+        }
+
         #getstarted {
             background: #EAF4FF;
             padding: 10px 25px;
@@ -156,39 +163,39 @@
         }
 
         function formatNumberWithAbbreviation(number) {
-  if (number >= 1000000) {
-    return (number / 1000000).toFixed(1) + 'M';
-  } else if (number >= 1000) {
-    return (number / 1000).toFixed(1) + 'K';
-  } else {
-    return number.toString();
-  }
-}
+            if (number >= 1000000) {
+                return (number / 1000000).toFixed(1) + 'M';
+            } else if (number >= 1000) {
+                return (number / 1000).toFixed(1) + 'K';
+            } else {
+                return number.toString();
+            }
+        }
 
         window.onload = function () {
             const cachedStars = getCookie('cachedStars');
             if (cachedStars !== null) {
                 document.getElementById('stars').innerText = formatNumberWithAbbreviation(Number(cachedStars));
             } else {
-            const repoUrl = 'https://api.github.com/repos/hfcrypt/hfcrypt';
-            fetch(repoUrl)
-                .then(response => {
-                    if (response.status !== 200) {
-                        console.log(`Error: ${response.status}`);
-                        return;
-                    }
+                const repoUrl = 'https://api.github.com/repos/hfcrypt/hfcrypt';
+                fetch(repoUrl)
+                    .then(response => {
+                        if (response.status !== 200) {
+                            console.log(`Error: ${response.status}`);
+                            return;
+                        }
 
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data);
-                    const stargazersCount = data.stargazers_count;
-                    document.getElementById('stars').innerText = formatNumberWithAbbreviation(Number(stargazersCount));
-                    setCookie('cachedStars', stargazersCount, 1);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data);
+                        const stargazersCount = data.stargazers_count;
+                        document.getElementById('stars').innerText = formatNumberWithAbbreviation(Number(stargazersCount));
+                        setCookie('cachedStars', stargazersCount, 1);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
             }
         }
 
@@ -206,6 +213,7 @@
         <h1>Host proprietary and closed-source code</h1>
         <h2>On Hugging Face Spaces.</h2>
         <a href="#getstarted" class="gsbtn" ripple>Get Started</a>
+        <a href="https://github.com/hfcrypt/hfcrypt" class="scbtn" ripple>Source Code</a>
     </div>
     <main>
         <h1>About</h1>

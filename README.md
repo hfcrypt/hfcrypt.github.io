@@ -10,7 +10,7 @@ The license for this website is separate from the main HFCrypt repository. Pleas
 ***********************************************************************
 ** THIS SOFTWARE IS LICENSED UNDER CC-BY-NC-ND 4.0 INTERNATIONAL.    **
 ** THE AUTHOR RESERVES THE RIGHT TO REVOKE THIS LICENSE AT ANY TIME. **
-** BY CONTRIBUTING, THE CONTRIBUTOR AGRESS THAT:                     **
+** BY CONTRIBUTING, THE CONTRIBUTOR AGREES THAT:                     **
 ** 1) THE CONTRIBUTOR POSSESSES THE NECESSARY INTELLECTUAL PROPERTY  **
 **    (IP) RIGHTS TO THE AFOREMENTIONED CONTRIBUTION, AND            **
 ** 2) BY SUBMITTING THE CONTRIBUTION, THE CONTRIBUTOR AGREES TO      **
